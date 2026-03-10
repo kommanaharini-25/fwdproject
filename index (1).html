@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoAware Dashboard - Sustainable Living Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- LOGIN PAGE -->
+    <div id="loginPage" class="login-page">
+        <div class="login-box">
+            <h1>🌱 EcoAware</h1>
+            <p>Dashboard for Sustainable Living</p>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="Enter your email" value="user@eco.com">
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter password" value="demo123">
+            </div>
+
+            <button class="login-button" onclick="login()">Login to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="dashboard-container">
+        <div class="dashboard-sidebar">
+            <div class="dashboard-logo">
+                <span class="dashboard-logo-icon">🌱</span>
+                <span>EcoAware</span>
+            </div>
+
+            <div class="dashboard-nav">
+                <div class="nav-item active" onclick="goToPage('home')">📊 Dashboard Home</div>
+                <div class="nav-item" onclick="goToPage('calculator')">📈 Carbon Calculator</div>
+                <div class="nav-item" onclick="goToPage('game')">🎮 Recycling Game</div>
+                <div class="nav-item" onclick="goToPage('treasure')">♻️ Waste to Treasure</div>
+                <div class="nav-item" onclick="goToPage('locations')">📍 Eco Locations</div>
+                <div class="nav-item" onclick="goToPage('contacts')">📞 Organizations</div>
+            </div>
+        </div>
+
+        <div class="dashboard-main">
+            <div class="dashboard-header">
+                <h1>🌍 EcoAware Dashboard</h1>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+
+            <!-- PROGRESS INDICATOR -->
+            <div class="progress-indicator">
+                <div class="progress-step" id="step1">
+                    <div class="step-number">1</div>
+                    <span>Home</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step2">
+                    <div class="step-number">2</div>
+                    <span>Calculator</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step3">
+                    <div class="step-number">3</div>
+                    <span>Game</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step4">
+                    <div class="step-number">4</div>
+                    <span>More</span>
+                </div>
+            </div>
+
+            <!-- HOME PAGE -->
+            <div id="home" class="dashboard-page active">
+                <div class="card">
+                    <h2>Welcome to Your Eco Dashboard</h2>
+                    <p>Track your environmental impact and discover ways to live more sustainably. This dashboard helps you monitor your carbon footprint, learn about recycling, and connect with environmental organizations.</p>
+
+                    <div class="game-stats" style="margin-top: 30px;">
+                        <div class="stat-box">
+                            <div class="stat-label">Carbon Score</div>
+                            <div class="stat-value">7.2</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Eco Points</div>
+                            <div class="stat-value">420</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Recycled Items</div>
+                            <div class="stat-value">156</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Ranking</div>
+                            <div class="stat-value">Eco Hero</div>
+                        </div>
+                    </div>
+
+                    <h3>🚀 What would you like to do?</h3>
+                    <p>Navigate through the sections to learn more about sustainable living or use the sidebar menu.</p>
+                </div>
+
+                <div class="nav-footer">
+                    <div class="page-indicator">Page 1 of 6</div>
+                    <div class="button-group">
+                        <button class="btn btn-next" onclick="nextPage()">Next Page →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CALCULATOR PAGE -->
+            <div id="calculator" class="dashboard-page">
+                <div class="card">
+                    <h2>🌍 Carbon Footprint Calculator</h2>
+                    <p>Calculate your environmental impact based on your daily habits.</p>
+
+                    <div class="calculator-inputs">
+                        <div class="input-group">
+                            <label>Primary Transport</label>
+                            <select id="transport">
+                                <option value="car">🚗 Car</option>
+                                <option value="bus">🚌 Bus</option>
+                                <option value="bike">🚴 Bicycle</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Electricity Usage (kWh)</label>
+                            <input type="number" id="electricity" value="50" min="0" max="200" onchange="updateSlider()" onkeyup="updateSlider()">
+                            <input type="range" class="form-slider" id="electricitySlider" min="0" max="200" value="50" oninput="updateElectricityInput()">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Plastic Usage (items/week)</label>
+                            <input type="number" id="plastic" value="20" min="0" max="100" onchange="updateSlider()" onkeyup="updateSlider()">
+                            <input type="range" class="form-slider" id="plasticSlider" min="0" max="100" value="20" oninput="updatePlasticInput()">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Water Usage (liters/day)</label>
+                            <input type="number" id="water" value="200" min="0" max="500" onchange="updateSlider()" onkeyup="updateSlider()">
+                            <input type="range" class="form-slider" id="waterSlider" min="0" max="500" value="200" oninput="updateWaterInput()">
+                        </div>
+                    </div>
+
+                    <div id="resultContent" class="result-box" style="display: none;"></div>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="calculateFootprint()">📊 Calculate Footprint</button>
+                    </div>
+                </div>
+
+                <div class="nav-footer">
+                    <div class="page-indicator">Page 2 of 6</div>
+                    <div class="button-group">
+                        <button class="btn btn-prev" onclick="prevPage()">← Previous</button>
+                        <button class="btn btn-next" onclick="nextPage()">Next Page →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GAME PAGE -->
+            <div id="game" class="dashboard-page">
+                <div class="card">
+                    <h2>🎮 Recycling Classification Game</h2>
+                    <p>Drag items into the correct waste bins to earn points. Test your knowledge of proper waste segregation!</p>
+
+                    <div class="game-container">
+                        <div class="game-stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Score</div>
+                                <div class="stat-value" id="gameScore">0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Round</div>
+                                <div class="stat-value" id="gameRound">1</div>
+                            </div>
+                        </div>
+
+                        <h3>Items to Sort:</h3>
+                        <div class="waste-items" id="wasteItems"></div>
+
+                        <h3>Drop Items Here:</h3>
+                        <div class="waste-bins">
+                            <div class="bin" ondrop="handleDrop(event, 'organic')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                                <div class="bin-emoji">🌱</div>
+                                <div class="bin-label">Organic</div>
+                            </div>
+                            <div class="bin" ondrop="handleDrop(event, 'recycle')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                                <div class="bin-emoji">♻️</div>
+                                <div class="bin-label">Recycle</div>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn btn-secondary" onclick="restartGame()">🔄 Restart Game</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-footer">
+                    <div class="page-indicator">Page 3 of 6</div>
+                    <div class="button-group">
+                        <button class="btn btn-prev" onclick="prevPage()">← Previous</button>
+                        <button class="btn btn-next" onclick="nextPage()">Next Page →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TREASURE PAGE -->
+            <div id="treasure" class="dashboard-page">
+                <div class="card">
+                    <h2>♻️ Waste to Treasure Ideas</h2>
+                    <p>Learn creative ways to repurpose your waste and turn it into something useful!</p>
+
+                    <h3>Select a Waste Item:</h3>
+                    <div id="wasteOptions"></div>
+
+                    <div id="ideasContent"></div>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary" id="generateButton" onclick="generateIdeas()" disabled>💡 Get Ideas</button>
+                    </div>
+                </div>
+
+                <div class="nav-footer">
+                    <div class="page-indicator">Page 4 of 6</div>
+                    <div class="button-group">
+                        <button class="btn btn-prev" onclick="prevPage()">← Previous</button>
+                        <button class="btn btn-next" onclick="nextPage()">Next Page →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOCATIONS PAGE -->
+            <div id="locations" class="dashboard-page">
+                <div class="card">
+                    <h2>📍 Eco-Friendly Locations Near You</h2>
+                    <p>Find recycling centers, organic markets, and environmental organizations in your area.</p>
+
+                    <div class="locations-container">
+                        <div id="locationsList"></div>
+                        <div id="locationDetails">
+                            <h3>Select a location to view details</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-footer">
+                    <div class="page-indicator">Page 5 of 6</div>
+                    <div class="button-group">
+                        <button class="btn btn-prev" onclick="prevPage()">← Previous</button>
+                        <button class="btn btn-next" onclick="nextPage()">Next Page →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACTS PAGE -->
+            <div id="contacts" class="dashboard-page">
+                <div class="card">
+                    <h2>📞 Environmental Organizations</h2>
+                    <p>Connect with organizations dedicated to sustainable living and environmental protection.</p>
+
+                    <div id="contactsList"></div>
+                </div>
+
+                <div class="nav-footer">
+                    <div class="page-indicator">Page 6 of 6</div>
+                    <div class="button-group">
+                        <button class="btn btn-prev" onclick="prevPage()">← Previous</button>
+                        <button class="btn btn-secondary" onclick="goToPage('home')">← Back to Home</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
